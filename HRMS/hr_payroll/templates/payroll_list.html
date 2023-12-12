@@ -1,0 +1,112 @@
+
+{% extends "base.html" %}
+{% block title %} Payrolls {% endblock %}
+{% block body_block %}
+{% load static %}
+
+<style>
+
+ .blurry-table {
+        background-color: rgba(128, 128, 128, 0.5); 
+        backdrop-filter: blur(10px); 
+        border-radius: 10px; 
+        padding: 10px; 
+        border: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    .text-white {
+        color: white; /
+    }
+
+    .black-border {
+        border: 5px solid black; 
+        padding: 1px; 
+    }
+     .transparent-background {
+        background-color: transparent !important; 
+        color: your-desired-text-color; 
+    }
+    .total{
+        text-align: right;
+        color: white;
+        margin-right:20px;
+    }
+</style>
+
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+
+<div class="container">
+    <div>
+        <h2 class="text-white"> Payrolls </h2>
+    </div>
+     <div>
+       <p class="total">Total payrolls: {{ payroll_list.count }}</p>
+    </div>
+   <div class="float-left">
+    <form class="form-inline" action="/hr_expense/order_by/">
+        <a class="btn btn-primary btn-outline-light mr-sm-2" href="/hr_expense/new_expense/">
+            <i class="fa fa-plus" aria-hidden="true"></i> Create
+        </a>
+
+        <button class="btn btn-outline-light mr-sm-2 {{ order_selected.employee }}" type="submit" name="order" value="employee">
+            Employee <i class="fas fa-sort-alpha-down" aria-hidden="true"></i>
+        </button>
+
+        <button class="btn btn-outline-light mr-sm-2 {{ order_selected.tax }}" type="submit" name="order" value="tax">
+           Tax <i class="fas fa-sort-numeric-up" aria-hidden="true"></i>
+        </button>
+
+        <button class="btn btn-outline-light mr-sm-2 {{ order_selected.expected_salary }}" type="submit" name="order" value="bonus">
+           Bonus <i class="fas fa-sort-alpha-up" aria-hidden="true"></i>
+        </button>
+    </form>
+</div>
+</br>
+</br>
+
+    <table class="table table-bordered table-hover blurry-table">
+        <thead class="thead-transparent">
+           <tr>
+
+                <th scope="col" class="text-white black-border">No.</th>
+                <th scope="col" class="text-white black-border">Payroll for</th>
+                <th scope="col" class="text-white black-border">Employee:</th>
+                <th scope="col" class="text-white black-border">Salary</th>
+                <th scope="col" class="text-white black-border">OT rate</th>
+                <th scope="col" class="text-white black-border">Allowance</th>
+                <th scope="col" class="text-white black-border">Deduction</th>
+                <th scope="col" class="text-white black-border">Tax</th>
+                <th scope="col" class="text-white black-border">Bonus</th>
+                <th scope="col" class="text-white black-border">Insurance</th>
+                <th scope="col" class="text-white black-border">Payroll type</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for payroll in payroll_list %}
+                <tr  class="clickable" onclick="window.location='/hr_payroll/detail/{{payroll.id}}/'">
+                   
+                    <td class="text-white black-border">{{ forloop.counter }}</td>
+                    <td class="text-white black-border">{{ payroll.name }}</td>
+                    <td class="text-white black-border">{{ payroll.employee }}</td>
+                    <td class="text-white black-border">{{ payroll.salary }}</td>
+                    <td class="text-white black-border">{{ payroll.ot_rate }}</td>
+                    <td class="text-white black-border">{{ payroll.allowance }}</td>
+                    <td class="text-white black-border">{{ payroll.deduction }}</td>
+                    <td class="text-white black-border">{{ payroll.tax }}</td>
+                    <td class="text-white black-border">{{ payroll.bonus }}</td>
+                    <td class="text-white black-border">{{ payroll.insurance }}</td>
+                    <td class="text-white black-border">
+                           
+                         {% for tag in payroll.tags.all %}
+                        <i> {{tag}} </i>
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock body_block %}

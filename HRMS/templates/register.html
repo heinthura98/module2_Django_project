@@ -1,0 +1,116 @@
+{% extends "base.html" %}
+{% block body_block %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Registration</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        /* Add custom CSS for form-container */
+        .form-container {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-left: -220px;
+        }
+
+        /* Additional custom styles for the form elements */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background-color: #007BFF;
+        }
+
+        /* Additional custom styles for labels */
+        label {
+            font-weight: bold;
+        }
+
+        /* Customize form input fields */
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* Customize the "Register" button */
+        .btn-primary {
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+        }
+
+        /* Center the "Register" button */
+        .btn-block {
+            text-align: center;
+        }
+
+        .form-header {
+            font-size: 30px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class=" form-container">
+                    <div class="bg-transparent text-dark form-header">User Registration</div>
+                </br></br>
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="{{ form.username.id_for_label }}">Set Username</label>
+                                {{ form.username }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="{{ form.name.id_for_label }}">Name</label>
+                                {{ form.name }}
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="{{ form.position.id_for_label }}">Position</label>
+                                {{ form.position }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="{{ form.email.id_for_label }}">Email</label>
+                                {{ form.email }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="{{ form.job.id_for_label }}">Job</label>
+                            {{ form.job }}
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="{{ form.password1.id_for_label }}">Password</label>
+                                {{ form.password1 }}
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+                                {{ form.password2 }}
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-block">Register</button>
+                        <a href="{% url 'login' %}" class="btn btn-secondary btn-block mt-3">Back to Login</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

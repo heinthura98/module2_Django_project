@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block head_block %}
+{% endblock %}
+
+{% block body_block %}
+<style>
+    /* Add custom CSS for indentation and readability */
+    .employee-details-container {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.5);
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        backdrop-filter: blur(5px);
+        text-align: center;
+    }
+
+    .employee-details-container h2 {
+        background-color: rgba(255, 255, 255, 0.5);
+        color: #000; /* Set the text color to black */
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    .employee-details-container ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    .employee-details-container li {
+        margin-bottom: 10px;
+    }
+
+    .badge {
+        margin-left: 5px;
+    }
+
+    .back-link {
+        display: block;
+        margin-top: 20px;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    /* Style the buttons to match the container */
+    .transparent-button1 {
+        background-color: rgba(255, 255, 255, 0.5) !important;
+        color: #000; /* Text color */
+        border: 1px solid rgba(0, 0, 0, 0.2); /* Border style */
+        border-radius: 10px; /* Button border radius */
+        margin: 5px; /* Add margin for spacing */
+        padding: 5px 10px; /* Adjust padding as needed */
+    }
+
+    /* Override the hover state for the buttons to keep the text color black */
+    .transparent-button1:hover {
+        color: #000;
+    }
+</style>
+
+<div class="employee-details-container">
+    <h2>Employee Details</h2>
+
+    <ul>
+        <li><b>Name:</b> {{ employee.name }}</li>
+        <li><b>Position:</b>
+           
+         {{ employee.job }}
+      ({% for tag in employee.tags.all %}
+                    {{ tag }}
+                {% endfor %})
+            </li>
+        <li><b>Age:</b> {{ employee.age }}</li>
+        <li><b>Birthday:</b> {{ employee.birthday }}</li>
+        <li><b>Address:</b> {{ employee.address }}</li>
+        <li><b>Email:</b> {{ employee.email }}</li>
+        <li><b>Gender:</b> {{ employee.gender }}</li>
+        <li><b>Is_married:</b> {{ employee.is_married }}</li>
+        <li><b>Joining Date:</b> {{ employee.joining_date }}</li>
+        <li><b>Image:</b> {{ employee.image }}</li>
+    </ul>
+
+    <!-- Back, Update, and Delete buttons with the transparent-button class -->
+    <div class="form-group">
+        <a class="btn btn-dark transparent-button1" href="/hr_employees/show_employee">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
+        </a>
+
+        <a class="btn btn-primary transparent-button1" href="/hr_employees/update/{{employee.id}}/">
+            Update
+        </a>
+
+        <a class="btn btn-danger transparent-button1" href="/hr_employees/delete/{{employee.id}}/"
+            onclick="return confirm('Are you sure?');"> Delete
+        </a>
+    </div>
+</div>
+
+{% endblock %}

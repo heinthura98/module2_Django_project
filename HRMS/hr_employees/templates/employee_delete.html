@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block head_block %}
+    <!-- Add Bootstrap CSS link here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        .blurry-background {
+          	background-color: rgba(128, 128, 128, 0.5);/* White background with 80% opacity */
+            backdrop-filter: blur(5px); /* Adjust the blur amount as needed */
+            padding: 20px; /* Add some padding to the container for spacing */
+            border-radius: 10px; /* Optional: Add rounded corners */
+            color: white; /* Set text color to white */
+        }
+        body {
+            font-family: 'Roboto Slab', sans-serif;
+        }
+
+    </style>
+{% endblock %}
+
+{% block body_block %}
+<div class="container mt-4">
+    <h2 class="text-dark blurry-background">Do you want to delete this profile?</h2>
+    
+    <h4>Profile of:</h4>
+    
+    <form class="blurry-background">
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label><b>Name:</b></label>
+                <p>{{ employee.name }}</p>
+            </div>
+            <div class="form-group col-md-3">
+                <label><b>Position:</b></label>
+                <p>{{ employee.job }}</p>
+            </div>
+            <div class="form-group col-md-3">
+                <label><b>Age:</b></label>
+                <p>{{ employee.age }}</p>
+            </div>
+            <div class="form-group col-md-3">
+                <label><b>Birthday:</b></label>
+                <p>{{ employee.birthday }}</p>
+            </div>
+            <div class="form-group col-md-3">
+                <label><b>Address:</b></label>
+                <p>{{ employee.address }}</p>
+            </div>
+            <div class="form-group col-md-3">
+                <label><b>Email:</b></label>
+                <p>{{ employee.email }}</p>
+            </div>
+            <div class="form-group col-md-3">
+                <label><b>Gender:</b></label>
+                <p>{{ employee.gender }}</p>
+            </div>
+            <div class="form-group col-md-3">
+                <label><b>Is Married:</b></label>
+                <p>{{ employee.is_married }}</p>
+            </div>
+            <div class="form-group col-md-3">
+                <label><b>Joining Date:</b></label>
+                <p>{{ employee.joining_date }}</p>
+            </div>
+            <div class="form-group col-md-3">
+                <label><b>Image:</b></label>
+                <p>{{ employee.image }}</p>
+            </div>
+        </div>
+    </form>
+
+    <form method="POST" action="/hr_employees/delete/{{ employee.id }}/" class="mt-4 blurry-background">
+        {% csrf_token %}
+        <a href="javascript:history back()" class="btn btn-secondary">Back</a>
+        <input type="submit" value="Delete" class="btn btn-danger">
+    </form>
+</div>
+{% endblock %}

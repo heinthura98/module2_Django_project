@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+
+{% block head_block %}
+    <!-- Include Bootstrap CSS (Add the correct Bootstrap CSS URL) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+      
+        .contract-details-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            text-align: center;
+        }
+
+        .contract-details-container h2 {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #000;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .contract-details-container ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .contract-details-container li {
+            margin-bottom: 10px;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        /* Style the buttons to match the container */
+        .transparent-button1 {
+            background-color: rgba(255, 255, 255, 0.5) !important;
+            color: #000; 
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 10px; 
+            margin: 5px; 
+            padding: 5px 10px;
+        }
+
+        
+        .transparent-button1:hover {
+            color: #000;
+        }
+    </style>
+{% endblock %}
+
+{% block body_block %}
+    <div class="contract-details-container">
+        <h2>Contract Details</h2>
+        <ul>
+            <li><b>Contract:</b> {{ contract.name }}</li>
+            <li><b>contract:</b> {{ contract.contract }}</li>
+            <li>
+                <b>Tags:</b>
+                {% for tag in contract.tags.all %}
+                    <a href="#">{{ tag }}</a>
+                {% endfor %}
+            </li>
+            <li><b>Rank:</b> {{ contract.rank }}</li>
+            <li><b>Start Date:</b> {{ contract.start_date }}</li>
+            <li><b>End Date:</b> {{ contract.end_date }}</li>
+            <li><b>Note:</b> {{ contract.note }}</li>
+            <li><b>Status:</b> {{ contract.status }}</li>
+            <li><b>Is Active:</b> {{ contract.is_active }}</li>
+            <li><b>Create Date:</b> {{ contract.create_date }}</li>
+            <li><b>Attachment:</b> {{ contract.attachment }}</li>
+        </ul>
+        
+
+        <!-- back ,Update and Delete buttons with the transparent-button class -->
+          <div class="form-group">
+        <a class="btn btn-dark transparent-button1" href="/hr_contracts/show_contract">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
+        </a>
+
+        <a class="btn btn-primary transparent-button1" href="/hr_contracts/update/{{contract.id}}/">
+            Update
+        </a>
+
+        <a class="btn btn-danger transparent-button1" href="/hr_contracts/delete/{{contract.id}}/"
+            onclick="return confirm('Are you sure?');"> Delete
+        </a>
+    </div>
+    </div>
+{% endblock %}

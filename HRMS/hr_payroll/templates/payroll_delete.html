@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block head_block %}
+    <!-- Include Bootstrap CSS link here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .confirmation-text {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .blurry-background {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            margin-bottom: 20px;
+        }
+        .button-margin {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+{% endblock %}
+
+{% block body_block %}
+    <div class="container">
+        <h2 class="confirmation-text">Do you want to delete payroll?</h2>
+        <h4>Payroll Details</h4>
+        <div class="blurry-background">
+            <ul>
+                <li><b>Name: </b> {{ payroll.name }}</li>
+                <li><b>Salary: </b> {{ payroll.salary }}</li>
+                <li><b>Overtime Rate: </b> {{ payroll.ot_rate }}</li>
+                <li><b>Allowance: </b> {{ payroll.allowance }}</li>
+                <li><b>Deduction: </b> {{ payroll.deduction }}</li>
+                <li><b>Tax: </b> {{ payroll.tax }}</li>
+                <li><b>Bonus: </b> {{ payroll.bonus }}</li>
+                <li><b>Insurance Type: </b> {{ payroll.insurance }}</li>
+            </ul>
+        </div>
+
+        <form method="POST" action="/hr_payroll/delete/{{payroll.id}}/">
+            {% csrf_token %}
+            <a href="javascript:history.back()" class="btn btn-dark button-margin">Back</a>
+            <input type="submit" value="Delete" class="btn btn-danger button-margin">
+        </form>
+    </div>
+{% endblock %}

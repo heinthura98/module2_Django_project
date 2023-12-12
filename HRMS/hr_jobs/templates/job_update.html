@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head_block %}
+    <!-- Include Bootstrap CSS link here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        .blurry-background {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            margin-top: 20px; /* Push down the form and headline */
+        }
+
+        .blurry-h1 {
+            background: rgba(255, 255, 255, 0.7); 
+            padding: 10px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            text-align: center;
+            display: inline-block;
+            width: 40%; 
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block body_block %}
+<div class="container">
+    <div class="text-center">
+        <h2 class="blurry-h1">Job Update</h2>
+    </div>
+
+    <form method="POST" action="/hr_jobs/update/{{form.instance.id}}/" enctype="multipart/form-data" class="mt-4 blurry-background" style="max-width: 400px; margin: 0 auto;">
+        <div class="form-group">
+            {% csrf_token %}
+            {{ form.as_p }}
+        </div>
+        <div class="text-center">
+            <a href="javascript:history.back()" class="btn btn-secondary">Back</a>
+            <input type="submit" value="Update" class="btn btn-primary">
+        </div>
+    </form>
+</div>
+{% endblock %}

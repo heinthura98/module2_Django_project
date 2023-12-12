@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block head_block %}
+    <!-- Include Bootstrap CSS link here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .confirmation-text {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .blurry-background {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+{% endblock %}
+
+{% block body_block %}
+    <div class="container">
+        <h2 class="confirmation-text">Do you want to Delete this resume?</h2>
+        <h4>Resume Details</h4>
+        <div class="blurry-background">
+            <ul>
+                <li><b>Name: </b> {{ resume.name }}</li>
+                <li><b>Sequence: </b> {{ resume.sequence }}</li>
+                <li><b>Appointment date: </b> {{ resume.appointment_date }}</li>
+                <li><b>Note: </b> {{ resume.note }}</li>
+                <li><b>Status: </b> {{ resume.status }}</li>
+                <li><b>Is active: </b> {{ resume.is_active }}</li>
+                <li><b>Create date: </b> {{ resume.create_date }}</li>
+                <li><b>Attachment: </b> {{ resume.attachment }}</li>
+            </ul>
+        </div>
+
+        <form method="POST" action="{% url 'resume_delete' pk=resume.id %}">
+            {% csrf_token %}
+            <a href="javascript:history.back()" class="btn btn-secondary">Back</a>
+            <input type="submit" value="Delete" class="btn btn-danger">
+        </form>
+    </div>
+{% endblock %}

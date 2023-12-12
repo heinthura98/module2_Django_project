@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %} expenses {% endblock %}
+{% block body_block %}
+{% load static %}
+
+<style>
+    /* Add a CSS class to the table to style it */
+ .blurry-table {
+        background-color: rgba(128, 128, 128, 0.5); /* Set a blurry grey background */
+        backdrop-filter: blur(10px); /* Add the blurry effect */
+        border-radius: 10px; /* Rounded corners */
+        padding: 10px; /* Add padding for better appearance */
+        border: 1px solid rgba(0, 0, 0, 0.2); /* Add a border for contrast */
+    }
+
+    .text-white {
+        color: white; /* Set the font color to white */
+    }
+
+    .black-border {
+        border: 5px solid black; /* Set a 1px black border */
+        padding: 1px; /* Add padding to separate the border from text */
+    }
+     .transparent-background {
+        background-color: transparent !important; 
+        color: your-desired-text-color; 
+    }
+    .total{
+        text-align: right;
+        color: white;
+        margin-right:30px;
+    }
+</style>
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+
+<div class="container">
+    <div>
+        <h2 class="text-white">All Expenses</h2>
+    </div>
+     <div>
+       <p class="total">Total expense: {{ expense_list.count }}</p>
+    </div>
+
+    <div class="float-right">
+ <form class="form-inline" action="/hr_expense/search_by/">
+ <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search">
+ <button class="btn btn-primary btn-lg" type="submit"> 
+    <i class="fas fa-search"
+ aria-hidden="true"></i>
+</button>
+ </form>
+ </div>
+
+<div class="float-left">
+    <form class="form-inline" action="/hr_expense/order_by/">
+        <a class="btn btn-primary btn-outline-light mr-sm-2" href="/hr_expense/new_expense/">
+            <i class="fa fa-plus" aria-hidden="true"></i> Create
+        </a>
+
+        <button class="btn btn-outline-light mr-sm-2 {{ order_selected.name }}" type="submit" name="order" value="title">
+            Title <i class="fas fa-sort-alpha-down" aria-hidden="true"></i>
+        </button>
+
+        <button class="btn btn-outline-light mr-sm-2 {{ order_selected.sequence }}" type="submit" name="order" value="value">
+           Value <i class="fas fa-sort-numeric-up" aria-hidden="true"></i>
+        </button>
+
+        <button class="btn btn-outline-light mr-sm-2 {{ order_selected.expected_salary }}" type="submit" name="order" value="date">
+           Date <i class="fas fa-sort-alpha-up" aria-hidden="true"></i>
+        </button>
+    </form>
+</div>
+</br>
+</br>
+</br>
+
+
+    <table class="table table-bordered table-hover blurry-table">
+        <thead class="thead-transparent">
+            <tr>
+                
+                <th scope="col" class="text-white black-border">No.</th>
+                <th scope="col" class="text-white black-border">Title</th>
+                <th scope="col" class="text-white black-border">Employee:</th>
+                <th scope="col" class="text-white black-border">Value</th>
+                <th scope="col" class="text-white black-border">Date</th>
+                <th scope="col" class="text-white black-border">Cash Out Status</th>
+                <th scope="col" class="text-white black-border">Description</th>
+                <th scope="col" class="text-white black-border">Receipt_number</th>
+                <th scope="col" class="text-white black-border">category</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for expense in expense_list %}
+                <tr class="clickable" onclick="window.location='/hr_expense/detail/{{expense.id}}/'">
+                  
+                    <td class="text-white black-border">{{ forloop.counter }}</td>
+                    <td class="text-white black-border">{{ expense.title }}</td>
+                    <td class="text-white black-border">
+                        {{ expense.employee }} </br>
+                        ( {% for tag in expense.tags.all %}
+                        <i> {{tag}} </i>
+                        {% endfor %} )
+                    </td>
+                    <td class="text-white black-border">{{ expense.value }}</td>
+                    <td class="text-white black-border">{{ expense.date }}</td>
+                    <td class="text-white black-border">{{ expense.cash_out }}</td>
+                    <td class="text-white black-border">{{ expense.description }}</td>
+                    <td class="text-white black-border">{{ expense.receipt_number }}</td>
+                    <td class="text-white black-border">{{ expense.category }}</td>
+                    
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock body_block %}

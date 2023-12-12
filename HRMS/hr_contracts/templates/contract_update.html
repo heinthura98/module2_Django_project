@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head_block %}
+    <!-- Include Bootstrap CSS link here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        .blurry-background {
+            background: rgba(255, 255, 255, 0.7); /* Adjust the alpha (fourth value) for transparency */
+            padding: 10px; /* Reduced padding */
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            margin: 0 auto; /* Center the form */
+            margin-top: 20px; /* Push down the form and headline */
+        }
+
+        .blurry-h1 {
+            background: rgba(255, 255, 255, 0.7); /* Adjust the alpha (fourth value) for transparency */
+            padding: 10px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            text-align: center;
+            display: inline-block;
+            width: 40%; /* Make the width of the headline background match the form background */
+            margin-top:-10px;
+            margin-bottom: 10px;
+        }
+    </style>
+{% endblock %}
+
+{% block body_block %}
+<br>
+<br>
+
+<div class="container">
+    <br>
+  <center>  <h2 class="blurry-h1">Update Contract</h2> </center>
+
+    <form method="POST" action="/hr_contracts/update/{{ form.instance.id }}/" enctype="multipart/form-data" class="mt-4 blurry-background" style="max-width: 400px;"> <!-- Adjust max-width for a smaller form -->
+        <div class="form-group">
+            {% csrf_token %}
+            {{ form.as_p }}
+        </div>
+        <div class="text-center"> <!-- Center the form controls -->
+            <a href="javascript:history back()" class="btn btn-secondary">Back</a>
+            <input type="submit" value="Update" class="btn btn-primary">
+        </div>
+    </form>
+</div>
+<br>
+<br>
+
+{% endblock %}

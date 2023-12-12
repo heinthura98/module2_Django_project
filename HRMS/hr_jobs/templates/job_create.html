@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block head_block %} {% endblock %}
+{% block body_block %}
+    <div>
+    <h1> Create Job </h1>
+    <form method="POST" action="/hr_jobs/new_job/" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input type="submit" value="create">
+        <a href="javascript:history.back()"> Back </a>
+    </form>
+    </div>
+{% endblock %}

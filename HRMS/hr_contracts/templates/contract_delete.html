@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block head_block %}
+    <!-- Include Bootstrap CSS link here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        .container {
+            max-width: 400px;
+        }
+
+        .confirmation-text {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .blurry-background {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            padding: 20px;
+        }
+
+        .left-align {
+            text-align: left;
+        }
+    </style>
+</head>
+{% endblock %}
+
+{% block body_block %}
+    <div class="container left-align">
+        <h2 class="confirmation-text">Do you want to delete this contract?</h2>
+        <h4>Contract Details</h4>
+        <div class="blurry-background">
+            <ul>
+                <li><b>Contract: </b>{{ contract.name }}</li>
+                <li><b>Rank: </b>{{ contract.rank }}</li>
+                <li><b>Start Date: </b>{{ contract.start_date }}</li>
+                <li><b>End Date: </b>{{ contract.end_date }}</li>
+                <li><b>Note: </b>{{ contract.note }}</li>
+                <li><b>Status: </b>{{ contract.status }}</li>
+                <li><b>Is Active: </b>{{ contract.is_active }}</li>
+                <li><b>Create Date: </b>{{ contract.create_date }}</li>
+                <li><b>Attachment: </b>{{ contract.attachment }}</li>
+                <li><b>Employee: </b>{{ contract.employee }}</li>
+                <li><b>Tags: </b>
+                    {% for tag in contract.tags.all %}
+                        {{ tag }}
+                    {% endfor %}
+                </li>
+            </ul>
+        </div>
+
+        <form method="POST" action="{% url 'contract_delete' pk=contract.id %}">
+            {% csrf_token %}
+            <a href="javascript:history.back()" class="btn btn-secondary">Back</a>
+            <input type="submit" value="Delete" class="btn btn-danger">
+        </form>
+    </div>
+
+    <div class="footer">
+        <!-- Your footer content here -->
+    </div>
+{% endblock %}

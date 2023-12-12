@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block head_block %}
+    <!-- Include Bootstrap CSS link here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <style>
+        .mt-4 {
+            margin-top: 20px; /* Adjust the margin-top value to match the design */
+        }
+
+        .container {
+            max-width: 400px; /* Adjust the max-width as needed */
+            margin: 0 auto;
+        }
+
+        .blurry-background {
+            background: rgba(255, 255, 255, 0.7); /* Adjust the alpha (fourth value) for transparency */
+            padding: 10px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            margin-bottom: 40px; /* Add margin to the bottom to prevent overlap with the footer */
+        }
+
+        .blurry-h1 {
+            background: rgba(255, 255, 255, 0.7); /* Adjust the alpha (fourth value) for transparency */
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            display: inline-block;
+            width: 100%; /* Make the width of the headline background match the form background */
+        }
+    </style>
+</head>
+{% endblock %}
+
+{% block body_block %}
+<div class="container">
+    <div class="text-center mt-4">
+        <h2 class="blurry-h1">Edit Resume</h2>
+    </div>
+
+    <form method="POST" action="/hr_recruitments/update/{{form.instance.id}}/" enctype="multipart/form-data" class="mt-4 blurry-background">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+     <!--    {% if uploaded_image %}
+            <p>File uploaded at: <a href="{{uploaded_image_url}}">{{uploaded_image}}</a></p>
+        {% endif %} -->
+
+        <div class="text-center mt-4">
+            <input type="submit" value="Update" class="btn btn-primary">
+            <a href="javascript:history.back()" class="btn btn-secondary">Back</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

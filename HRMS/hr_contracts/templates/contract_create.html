@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block head_block %}
+    <style>
+        .glass-background {
+            background: rgba(255, 255, 255, 0.2); /* Adjust the opacity as needed */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Adjust the opacity as needed */
+            padding: 20px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px); /* Add the glass blur effect */
+        }
+
+        /* Additional styles for the form */
+        .glass-form {
+            background: rgba(255, 255, 255, 0.7); /* Background for the form content */
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+    </style>
+{% endblock %}
+{% block body_block %}
+<div class="glass-background">
+    <h1>Create Contract</h1>
+    <form method="POST" action="/hr_contracts/new_contract/" enctype="multipart/form-data" class="glass-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div>
+            <input type="submit" value="Create">
+            <a href="javascript:history.back()">Back</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

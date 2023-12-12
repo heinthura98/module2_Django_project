@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block head_block %}
+    <!-- Include Bootstrap CSS (Add the correct Bootstrap CSS URL) -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Add custom CSS for indentation and readability */
+        .recruitment-details-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            text-align: center;
+        }
+
+        .recruitment-details-container h2 {
+            background-color: rgba(255, 255, 255, 0.5);
+            color: #000;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .recruitment-details-container ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .recruitment-details-container li {
+            margin-bottom: 10px;
+        }
+
+        .badge {
+            margin-left: 5px;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 20px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        /* Style the buttons to match the container */
+        .transparent-button1 {
+            background-color: rgba(255, 255, 255, 0.5) !important;
+            color: #000; /* Text color */
+            border: 1px solid rgba(0, 0, 0, 0.2); /* Border style */
+            border-radius: 10px; /* Button border radius */
+            margin: 5px; /* Add margin for spacing */
+            padding: 5px 10px; /* Adjust padding as needed */
+        }
+
+        /* Override the hover state for the buttons to keep the text color black */
+        .transparent-button1:hover {
+            color: #000;
+        }
+    </style>
+{% endblock %}
+
+{% block body_block %}
+    <div class="recruitment-details-container">
+        <h2>Recruitment Details</h2>
+        <ul>
+            <li><b>Resume:</b> {{ resume.name }}</li>
+            <li><b>Employee:</b> {{ resume.employee }}</li>
+            <li><b>Tags:</b>
+                {% for tag in resume.tags.all %}
+                    <i>{{ tag }}</i>
+                {% endfor %}
+            </li>
+            <li><b>Sequence:</b> {{ resume.sequence }}</li>
+            <li><b>Appointment Date:</b> {{ resume.appointment_date }}</li>
+            <li><b>Note:</b> {{ resume.note }}</li>
+            <li><b>Status:</b> {{ resume.status }}</li>
+            <li><b>Is Active:</b> {{ resume.is_active }}</li>
+            <li><b>Create Date:</b> {{ resume.create_date }}</li>
+            <li><b>Attachment:</b> {{ resume.attachment }}</li>
+        </ul>
+       
+
+        <!-- Update and Delete buttons with the transparent-button class -->
+        <div class="form-group">
+            <a class="btn btn-dark transparent-button1" href="/hr_recruitments/show_resume">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i> Back
+            </a>
+
+            <a class="btn btn-primary transparent-button1" href="/hr_recruitments/update/{{ resume.id }}/">
+                Update
+            </a>
+
+            <a class="btn btn-danger transparent-button1" href="/hr_recruitments/delete/{{ resume.id }}/"
+                onclick="return confirm('Are you sure?');"> Delete
+            </a>
+        </div>
+    </div>
+{% endblock %}

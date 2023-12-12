@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block head_block %}
+    <!-- Include Bootstrap CSS link here -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <style>
+        .mt-4 {
+            margin-top: 20px; 
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .blurry-background {
+            background: rgba(255, 255, 255, 0.7); 
+            padding: 10px;
+            border-radius: 10px;
+            backdrop-filter: blur(5px);
+            margin-bottom: 40px; 
+        }
+
+        .blurry-h1 {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            display: inline-block;
+            width: 100%;
+        }
+    </style>
+</head>
+{% endblock %}
+
+{% block body_block %}
+<br>
+<br>
+
+<div class="container">
+    <br>
+    <h2 class="blurry-h1">Payroll Update</h2>
+
+    <form method="POST" action="/hr_payroll/update/{{form.instance.id}}/" enctype="multipart/form-data" class="mt-4 blurry-background">
+        <div>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="text-center mt-4">
+
+                <a href="javascript:history.back()" class="btn btn-secondary">Back</a>
+                <input type="submit" value="Update" class="btn btn-primary">
+            </div>
+            
+        </div>
+    </form>
+</div>
+<br>
+<br>
+
+{% endblock %}

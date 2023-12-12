@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block title %} Employees {% endblock %}
+{% block body_block %}
+{% load static %}
+
+<style>
+    /* Add a CSS class to the table to style it */
+ .blurry-table {
+        background-color: rgba(128, 128, 128, 0.5); 
+        backdrop-filter: blur(10px); 
+        border-radius: 10px; 
+        padding: 10px; /* Add padding for better appearance */
+        border: 1px solid rgba(0, 0, 0, 0.2); 
+    }
+
+    .text-white {
+        color: white; /* Set the font color to white */
+    }
+
+    .black-border {
+        border: 5px solid black; 
+        padding: 1px; 
+    }
+    .transparent-background {
+    background-color: transparent !important;
+    color: your-desired-text-color; 
+}
+    .total{
+        text-align: right;
+        color: white;
+        margin-right:20px;
+    }
+
+</style>
+
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+
+<div class="container">
+    <div>
+        <h2 class="text-white"> Employees </h2>
+    </div>
+ <div>
+        
+        <!-- Display the total employees count in the top right corner -->
+        <p class="total">Total Employees: {{ all_employees|length }}</p>
+    </div>
+<div class="float-right">
+ <form class="form-inline" action="/hr_employees/search_by/">
+ <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search">
+ <button class="btn btn-primary btn-lg" type="submit"> <i class="fas fa-search"
+ aria-hidden="true"></i></button>
+ </form>
+ </div>
+
+<div class="float-left">
+    <form class="form-inline" action="/hr_employees/order_by/">
+        <a class="btn btn-primary btn-outline-light mr-sm-2" href="/hr_employees/new_employee/">
+            <i class="fa fa-plus" aria-hidden="true"></i> Create
+        </a>
+
+        <button class="btn btn-outline-light mr-sm-2 {{ order_selected.name }}" type="submit" name="order" value="name">
+            Name <i class="fas fa-sort-alpha-down" aria-hidden="true"></i>
+        </button>
+
+        <button class="btn btn-outline-light mr-sm-2 {{ order_selected.age }}" type="submit" name="order" value="age">
+            Age <i class="fas fa-sort-numeric-up" aria-hidden="true"></i>
+        </button>
+
+        <button class="btn btn-outline-light mr-sm-2 {{ order_selected.address }}" type="submit" name="order" value="address">
+            Address <i class="fas fa-sort-alpha-up" aria-hidden="true"></i>
+        </button>
+    </form>
+</div>
+
+</br>
+</br>
+    <table class="table table-bordered table-hover blurry-table">
+        <thead class="thead-transparent">
+            <tr>
+                <!-- <th scope="col" class="text-white black-border">Options</th> -->
+                <th scope="col" class="text-white black-border">No.</th>
+                <th scope="col" class="text-white black-border">Name</th>
+                <th scope="col" class="text-white black-border">Position:</th>
+                <th scope="col" class="text-white black-border">Age</th>
+                <th scope="col" class="text-white black-border">Birthday</th>
+                <th scope="col" class="text-white black-border">Address</th>
+                <th scope="col" class="text-white black-border">Email</th>
+                <th scope="col" class="text-white black-border">Gender</th>
+                <th scope="col" class="text-white black-border">Is Married</th>
+                <th scope="col" class="text-white black-border">Joining Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for employee in all_employees %}
+                <tr class="clickable" onclick="window.location='/hr_employees/detail/{{employee.id}}/'">
+                   <!--  <td class="black-border">
+                        <a href="/hr_employees/detail/{{employee.id}}">
+                            <i class="bi bi-info-circle text-white" style="font-size: 15px;"></i>
+                        </a>
+                        <a href="/hr_employees/delete/{{employee.id}}">
+                            <i class="bi bi-trash text-white" style="font-size: 15px;"></i>
+                        </a>
+                        <a href="/hr_employees/update/{{employee.id}}">
+                            <i class="bi bi-pencil text-white" style="font-size: 15px;"></i>
+                        </a>
+                    </td> -->
+                    <td class="text-white black-border">{{ forloop.counter }}</td>
+                    <td class="text-white black-border">{{ employee.name }}</td>
+                    <td class="text-white black-border">
+                        {{ employee.job }} </br>
+                        ( {% for tag in employee.tags.all %}
+                        <i> {{tag}} </i>
+                        {% endfor %} )
+                    </td>
+                    <td class="text-white black-border">{{ employee.age }}</td>
+                    <td class="text-white black-border">{{ employee.birthday }}</td>
+                    <td class="text-white black-border">{{ employee.address }}</td>
+                    <td class="text-white black-border">{{ employee.email }}</td>
+                    <td class="text-white black-border">{{ employee.gender }}</td>
+                    <td class="text-white black-border">{{ employee.is_married }}</td>
+                    <td class="text-white black-border">{{ employee.joining_date }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock body_block %}

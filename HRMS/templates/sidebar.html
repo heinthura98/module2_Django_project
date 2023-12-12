@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>HRMS Navigation</title>
+    <style>
+        .sidebar1 {
+            position: fixed;
+            margin-top: 32px;
+            left: 30;
+            width: 200px;
+            height: 100%;
+            z-index: 100;
+            color: #000;
+            backdrop-filter: blur(5px);
+            background-color: rgba(192, 192, 192, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .nav-link {
+            color: #000;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+            backdrop-filter: blur(10px); /* Increase the blur effect when hovering */
+            background-color:transparent;
+            margin-left:30px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position:relative;
+            background-color: #f9f9f9;
+            min-width: 200px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+       
+        .dropdown-content a {
+            text-decoration: none;
+            color: #000;
+            transition: backdrop-filter 0.3s, color 0.3s; 
+        }
+
+        .dropdown-content a:hover {
+            backdrop-filter: blur(50px);
+            background-color: rgba(255, 255, 255, 0.8);
+            color: #007BFF; 
+/*            z-index: 100;*/
+            
+        }
+
+        .dropdown-content a:hover {
+            backdrop-filter: blur(10px); /* Increase the blur effect when hovering */
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index:3;
+        }
+       .sidebar-content {
+            text-align: center; /* Center align text */
+        }
+        /* Additional CSS for main categories */
+        .main-category {
+            font-size:20px;
+            
+        }
+
+        .main-category:hover {
+            color: #007BFF; /* Change color on hover */
+        }
+    </style>
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <div class="container mt-4">
+        <div class="row sidebar1">
+            <div class="col-lg-3">
+              <h3>Categories</h3>
+            </br></br>
+                <div class="dropdown">
+                    <a class="nav-link main-category" href="#">Employees</a>
+                    <div class="dropdown-content">
+                        <a href="/hr_employees/show_employee">Employee List</a></br>
+                        <a href="/hr_employees/new_employee">Employee Create</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a class="nav-link main-category" href="#">Contracts</a>
+                    <div class="dropdown-content">
+                        <a href="/hr_contracts/show_contract">Contract List</a></br>
+                        <a href="/hr_contracts/new_contract">Contract Create</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a class="nav-link main-category" href="#">Jobs</a>
+                    <div class="dropdown-content">
+                        <a href="/hr_jobs/show_job">Job List</a></br>
+                        <a href="/hr_jobs/new_job">Job Create</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a class="nav-link main-category" href="#">Departments</a>
+                    <div class="dropdown-content">
+                        <a href="/hr_departments/show_department">Department List</a></br>
+                        <a href="/hr_departments/new_department">Department Create</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a class="nav-link main-category" href="#">Recruitments</a>
+                    <div class="dropdown-content">
+                        <a href="/hr_recruitments/show_resume">Resume List</a></br>
+                        <a href="/hr_recruitments/new_resume">Resume Create</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a class="nav-link main-category" href="#">Expenses</a>
+                    <div class="dropdown-content">
+                        <a href="/hr_expense/show_expense">Expense List</a></br>
+                        <a href="/hr_expense/new_expense">Expense Create</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a class="nav-link main-category" href="#">Payroll</a>
+                    <div class="dropdown-content">
+                        <a href="/hr_payroll/show_payroll">Payroll List</a></br>
+                        <a href="/hr_payroll/new_payroll">Payroll Create</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <a class="nav-link main-category" href="#">Attendance</a>
+                    <div class="dropdown-content">
+                        <a href="/hr_attendance/show_attendance">Attendance List</a></br>
+                        <a href="/hr_attendance/new_attendance">Attendance Create</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block title %} Departments {% endblock %}
+{% block body_block %}
+{% load static %}
+
+<style>
+    /* Add a CSS class to the table to style it */
+ .blurry-table {
+        background-color: rgba(128, 128, 128, 0.5); /* Set a blurry grey background */
+        backdrop-filter: blur(10px); /* Add the blurry effect */
+        border-radius: 10px; /* Rounded corners */
+        padding: 10px; /* Add padding for better appearance */
+        border: 1px solid rgba(0, 0, 0, 0.2); /* Add a border for contrast */
+    }
+
+    .text-white {
+        color: white; /* Set the font color to white */
+    }
+
+    .black-border {
+        border: 5px solid black; /* Set a 1px black border */
+        padding: 1px; /* Add padding to separate the border from text */
+    }
+    .transparent-background {
+        background-color: transparent !important; 
+        color: your-desired-text-color; 
+    }.
+   
+</style>
+
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+
+<div class="container">
+    <div>
+        <h2 class="text-white"> Departments </h2>
+    </div>
+ <div>
+    <p class=" text-white">Total departments: {{ department_list|length }}</p>
+</div>
+
+<div class="float-right">
+ <form class="form-inline" action="/hr_departments/search_by/">
+ <input class="form-control mr-sm-2" type="text" name="search" placeholder="Search">
+ <button class="btn btn-primary btn-lg" type="submit"> <i class="fas fa-search"
+ aria-hidden="true"></i></button>
+ </form>
+ </div>
+
+<div class="float-left">
+    <form class="form-inline" action="/hr_departments/order_by/">
+        <a class="btn btn-primary btn-outline-light mr-sm-2" href="/hr_departments/new_department/">
+            <i class="fa fa-plus" aria-hidden="true"></i> Create
+        </a>
+
+        <button class="btn btn-outline-light mr-sm-2 {{ order_selected.name }}" type="submit" name="order" value="name">
+            Name <i class="fas fa-sort-alpha-down" aria-hidden="true"></i>
+        </button>
+
+        <button class="btn btn-outline-light mr-sm-2 {{ order_selected.sequence }}" type="submit" name="order" value="sequence">
+           Sequence <i class="fas fa-sort-numeric-up" aria-hidden="true"></i>
+        </button>
+
+        <button class="btn btn-outline-light mr-sm-2 {{ order_selected.note }}" type="submit" name="order" value="note">
+           Note <i class="fas fa-sort-alpha-up" aria-hidden="true"></i>
+        </button>
+    </form>
+</div>
+</br>
+</br>
+</br>
+</br>
+
+    <table class="table table-bordered table-hover blurry-table">
+        <thead class="thead-transparent">
+            <tr>
+             
+                <th scope="col" class="text-white black-border">No.</th>
+                <th scope="col" class="text-white black-border">Dept Name</th>
+                <th scope="col" class="text-white black-border">Sequence</th>
+                <th scope="col" class="text-white black-border">Meeting Date</th>
+               
+                <th scope="col" class="text-white black-border">Note</th>
+                <th scope="col" class="text-white black-border">Status</th>
+                <th scope="col" class="text-white black-border">Active now</th>
+                <th scope="col" class="text-white black-border">Create Date</th>
+                <th scope="col" class="text-white black-border">Attachment</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for department in department_list %}
+                  <tr class="clickable" onclick="window.location='/hr_departments/detail/{{department.id}}/'">
+                    
+                    <td class="text-white black-border">{{ forloop.counter }}</td>
+                    <td class="text-white black-border">{{ department.name }}</td>
+                    <td class="text-white black-border">{{ department.sequence }}</td>
+                    <td class="text-white black-border">{{ department.meeting_date }}</td>
+                    <td class="text-white black-border">{{ department.note }}</td>
+                    <td class="text-white black-border">{{ department.status }}</td>
+                    <td class="text-white black-border">{{ department.is_active }}</td>
+                    <td class="text-white black-border">{{ department.create_date }}</td>
+                    <td class="text-white black-border">{{ department.attachment }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock body_block %}
